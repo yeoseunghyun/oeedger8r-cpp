@@ -55,8 +55,13 @@ class CEmitter
                      std::string(gen_t_c_ ? "enclave.h>" : "host.h>")
               << ""
               << "OE_EXTERNC_BEGIN"
-              << ""
-              << "/**** Trusted function IDs ****/";
+              << "";
+        if(edl_->migratable)
+        {
+            out() << "/**** For migration service ****/"
+                  << "unsigned long rsp,rbp;";
+        }
+        out() << "/**** Trusted function IDs ****/";
         trusted_function_ids();
         out() << "/**** ECALL marshalling structs. ****/";
         ecall_marshalling_structs();

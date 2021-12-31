@@ -93,6 +93,10 @@ class FEmitter
             out() << "    /* lfence after checks. */"
                   << "    oe_lfence();"
                   << "";
+            if(edl_->migratable){
+                out() << "/**** read rbp for migration ****/"
+                      << "__asm__ volatile(\"mov %%rbp, %0\":\"=r\"(rbp));";
+            }
         }
         out() << "    /* Call user function. */";
         call_user_function(f);

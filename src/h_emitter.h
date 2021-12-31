@@ -75,6 +75,12 @@ class HEmitter
         if (!gen_t_h_)
             out() << create_prototype(edl_->name_) + ";"
                   << "";
+        else 
+        {
+            if(edl_->migratable){
+                out() << "extern unsigned long rsp,rbp;";
+            }
+        }
         out() << "/**** ECALL prototypes. ****/";
         trusted_prototypes(prefix);
         out() << "/**** OCALL prototypes. ****/";

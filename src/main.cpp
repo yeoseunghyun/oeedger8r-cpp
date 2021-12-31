@@ -123,6 +123,7 @@ int main(int argc, char** argv)
     bool gen_untrusted = false;
     bool gen_trusted = false;
     bool experimental = false;
+    bool gen_migrate = false;
     std::string untrusted_dir = ".";
     std::string trusted_dir = ".";
     std::vector<std::string> files;
@@ -165,6 +166,8 @@ int main(int argc, char** argv)
             gen_untrusted = true;
         else if (a == "--trusted")
             gen_trusted = true;
+        else if (a == "--migratable")
+            gen_migrate = true;
         else if (a == "--trusted-dir")
             trusted_dir = get_dir(i++);
         else if (a == "--untrusted-dir")
@@ -273,6 +276,10 @@ int main(int argc, char** argv)
         Parser p(file, searchpaths, defines, warnings, experimental);
         Edl* edl = p.parse();
 
+        if (gen_migrate)
+        {
+            edl->migratable=true;
+        }
         if (gen_trusted)
         {
             ArgsHEmitter(edl).emit(trusted_dir);

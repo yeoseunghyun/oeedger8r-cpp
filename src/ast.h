@@ -102,6 +102,18 @@ struct Edl
     std::vector<UserType*> types_;
     std::vector<Function*> trusted_funcs_;
     std::vector<Function*> untrusted_funcs_;
+    bool migratable;
+    Edl(std::string name,
+        std::vector<std::string> includes,
+        std::vector<UserType*> types,
+        std::vector<Function*> trusted_funcs,
+        std::vector<Function*> untrusted_funcs):
+        name_(name),
+        includes_(includes),
+        types_(types),
+        trusted_funcs_(trusted_funcs),
+        untrusted_funcs_(untrusted_funcs),
+        migratable(false) {}
 };
 
 enum Directive
